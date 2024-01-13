@@ -32,6 +32,5 @@ module.exports = {
     'prefer-const': 'warn',
     'space-before-blocks': 'warn',
     'arrow-spacing': 'warn',
-    'no-duplicate-imports': 'warn',
   },
 }
