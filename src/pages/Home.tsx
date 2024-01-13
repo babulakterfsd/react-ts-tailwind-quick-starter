@@ -1,4 +1,4 @@
-import CreatorInfo from '../components/Creator';
+import CreatorInfo from '../components/home/Creator';
 
 const Home = () => {
   return (
