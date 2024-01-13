@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import NotFound from '../pages/NotFound';
 import Ongoing from '../pages/Ongoing';
+import Todo from '../pages/Todo';
 import { rootRoute } from './rootRoute';
 
 const indexRoute = new Route({
@@ -37,6 +38,12 @@ const loginRoute = new Route({
   component: () => <Login />,
 });
 
+const todoRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/todo',
+  component: () => <Todo />,
+});
+
 const notFoundRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '*',
@@ -49,6 +56,7 @@ const userRoutes = [
   counterRoute,
   ongoingRoute,
   loginRoute,
+  todoRoute,
   notFoundRoute,
 ];
 
