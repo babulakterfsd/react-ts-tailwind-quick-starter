@@ -2,6 +2,7 @@ import { Route } from '@tanstack/react-router';
 import About from '../pages/About';
 import Counter from '../pages/Counter';
 import Home from '../pages/Home';
+import Login from '../pages/Login';
 import NotFound from '../pages/NotFound';
 import Ongoing from '../pages/Ongoing';
 import { rootRoute } from './rootRoute';
@@ -30,6 +31,12 @@ const ongoingRoute = new Route({
   component: () => <Ongoing />,
 });
 
+const loginRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/login',
+  component: () => <Login />,
+});
+
 const notFoundRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '*',
@@ -41,6 +48,7 @@ const userRoutes = [
   aboutRoute,
   counterRoute,
   ongoingRoute,
+  loginRoute,
   notFoundRoute,
 ];
 
