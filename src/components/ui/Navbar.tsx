@@ -19,11 +19,8 @@ const Navbar = () => {
             Babul Akter
           </Link>
           <button
-            data-collapse-toggle="navbar-default"
             type="button"
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-default"
-            aria-expanded="false"
             onClick={toggleMenu}
           >
             <span className="sr-only">Open main menu</span>
@@ -43,12 +40,18 @@ const Navbar = () => {
               />
             </svg>
           </button>
-          <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="font-medium flex space-x-7">
+          <div
+            className={`${
+              isMenuOpen ? 'block' : 'hidden'
+            } w-full md:block md:w-auto`}
+            id="navbar-default"
+          >
+            <ul className="font-medium flex flex-col mt-4 space-y-4 md:space-y-0 md:flex-row md:space-x-8">
               <li>
                 <Link
                   to="/"
-                  className="block py-2 px-3 text-black hover:text-blue-400 rounded md:bg-transparent  md:p-0 dark:text-white "
+                  className="block py-2 px-3 text-black hover:text-blue-400 rounded md:bg-transparent md:p-0 dark:text-white"
+                  onClick={toggleMenu}
                   aria-current="page"
                 >
                   Home
@@ -58,6 +61,7 @@ const Navbar = () => {
                 <Link
                   to="/about"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  onClick={toggleMenu}
                 >
                   About
                 </Link>
@@ -66,6 +70,7 @@ const Navbar = () => {
                 <Link
                   to="/counter"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  onClick={toggleMenu}
                 >
                   Counter
                 </Link>
@@ -74,6 +79,7 @@ const Navbar = () => {
                 <Link
                   to="/ongoing"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  onClick={toggleMenu}
                 >
                   Ongoing
                 </Link>
