@@ -1,34 +1,46 @@
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { generateRandomId } from '@/utils/generateRandomId';
+import { updateTodo } from '@/redux/features/todoSlice';
+import { useAppDispatch } from '@/redux/hook';
+import { TTodo } from '@/types/commonTypes';
 import { useState } from 'react';
 
-const UpdateTodo = () => {
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
+const UpdateTodo = (todo: { todo: TTodo }) => {
+  const [title, setTitle] = useState<string>(todo.todo.title);
+  const [description, setDescription] = useState<string>(todo.todo.description);
+  const [isCompleted, setIsCompleted] = useState<boolean>(
+    todo.todo.isCompleted
+  );
+
+  const dispatch = useAppDispatch();
+
+  const handleIsCompletedChange = () => {
+    setIsCompleted(!isCompleted);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({
-      id: generateRandomId(),
-      title,
-      description,
-      isCompleted: false,
-    });
+    dispatch(
+      updateTodo({
+        id: todo.todo.id,
+        title,
+        description,
+        isCompleted,
+      })
+    );
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Update Todo</Button>
+        <button className="text-green-400 font-semibold">update</button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -80,14 +92,37 @@ const UpdateTodo = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="mt-4 bg-red-300 rounded-md px-8 py-2 text-white hover:bg-red-400 transition-colors duration-300 ease-in-out"
-          >
-            Save
-          </button>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="isCompleted"
+                id="isCompleted"
+                className="peer h-4 w-4 border-gray-300 rounded-md text-dashboard-main focus:ring-indigo-500"
+                checked={isCompleted}
+                onChange={handleIsCompletedChange}
+              />
+              <label
+                htmlFor="terms"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {isCompleted ? (
+                  <span className="text-xs text-green-400">Completed</span>
+                ) : (
+                  <span className="text-xs text-red-700">Incompleted</span>
+                )}
+              </label>
+            </div>
+            <DialogClose asChild>
+              <button
+                type="submit"
+                className="mt-4 bg-red-300 rounded-md px-8 py-2 text-white hover:bg-red-400 transition-colors duration-300 ease-in-out"
+              >
+                Save
+              </button>
+            </DialogClose>
+          </div>
         </form>
-        <DialogFooter></DialogFooter>
       </DialogContent>
     </Dialog>
   );
