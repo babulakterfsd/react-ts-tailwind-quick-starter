@@ -11,4 +11,6 @@ export type TTodo = {
 
 export type TTodoInitialState = {
   todos: TTodo[];
+  filter: string;
+  filteredTodos?: TTodo[];
 };

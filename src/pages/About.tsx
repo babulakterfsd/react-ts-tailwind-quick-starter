@@ -7,6 +7,16 @@ const About = () => {
         backend with node, express, mongoose and mongodb. Expert in full-stack
         solution with nextjs.
       </p>
+      <p className="text-center font-semibold mt-6 text-gray-400">
+        Have a look on my best projects visiting my{' '}
+        <a
+          href="https://babulakter.com"
+          target="_blank"
+          className="underline hover:text-blue-500"
+        >
+          portfolio
+        </a>
+      </p>
     </>
   );
 };

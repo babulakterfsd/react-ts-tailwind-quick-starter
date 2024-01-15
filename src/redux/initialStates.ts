@@ -6,4 +6,6 @@ export const counterInitialState: TCounterInitialState = {
 
 export const todoInitialState: TTodoInitialState = {
   todos: [],
+  filter: 'all',
+  filteredTodos: [],
 };

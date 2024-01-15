@@ -27,8 +27,21 @@ const todoSlice = createSlice({
       );
       state.todos.splice(todoIndex, 1);
     },
+    filterTodos: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        filter: action.payload,
+        filteredTodos:
+          action.payload === 'all'
+            ? state.todos
+            : state.todos.filter(
+                (todo) => todo.isCompleted === (action.payload === 'completed')
+              ),
+      };
+    },
   },
 });
 
-export const { addTodo, updateTodo, deleteTodo } = todoSlice.actions;
+export const { addTodo, updateTodo, deleteTodo, filterTodos } =
+  todoSlice.actions;
 export default todoSlice.reducer;

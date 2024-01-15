@@ -14,9 +14,15 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { filterTodos } from '@/redux/features/todoSlice';
+import { useAppDispatch } from '@/redux/hook';
+import { useEffect, useState } from 'react';
 
 const filterOptions = [
+  {
+    value: 'all',
+    label: 'All',
+  },
   {
     value: 'completed',
     label: 'Completed',
@@ -29,7 +35,13 @@ const filterOptions = [
 
 const FilterTodosDropdown = () => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('all');
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(filterTodos(value));
+  }, [value, dispatch]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
