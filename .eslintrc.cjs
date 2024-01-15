@@ -31,6 +31,6 @@ module.exports = {
     'no-var': 'warn',
     'prefer-const': 'warn',
     'space-before-blocks': 'warn',
-    'arrow-spacing': 'warn',
+    'arrow-spacing': 'warn'
   },
 }

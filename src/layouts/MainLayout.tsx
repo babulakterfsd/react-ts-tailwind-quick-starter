@@ -1,5 +1,5 @@
 import { Outlet } from '@tanstack/react-router';
-import Navbar from '../components/ui/Navbar';
+import Navbar from '../components/common/Navbar';
 
 const MainLayout = () => {
   return (

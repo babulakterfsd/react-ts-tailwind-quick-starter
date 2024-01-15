@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counterSlice';
+import todoReducer from './features/todoSlice';
 import { myCustomReduxLogger } from './middleware/myCustomReduxLogger';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    todo: todoReducer,
   },
   //   devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) =>
