@@ -5,6 +5,10 @@ import UpdateTodo from './UpdateTodo';
 
 const TodoList = () => {
   const { todos, filter } = useAppSelector((state) => state.todo);
+  const completedTodos = todos.filter((todo) => todo.isCompleted);
+  const incompleteTodos = todos.filter((todo) => !todo.isCompleted);
+  const allTodos = incompleteTodos.concat(completedTodos); // just to show incompleted todos first
+
   const dispatch = useAppDispatch();
   const handleDelete = (todo: TTodo) => {
     dispatch(deleteTodo(todo));
@@ -30,7 +34,7 @@ const TodoList = () => {
         </thead>
         <tbody>
           {filter === 'all' &&
-            todos?.map((todo: TTodo) => {
+            allTodos?.map((todo: TTodo) => {
               const { id, title, description, isCompleted } = todo;
 
               return (
