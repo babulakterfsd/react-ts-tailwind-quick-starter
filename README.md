@@ -14,3 +14,5 @@
 - Redux setup
 - tailwind css setup
 - eslint setup
+
+##### server link : https://reacttodo-server-babulakterfsd.vercel.app

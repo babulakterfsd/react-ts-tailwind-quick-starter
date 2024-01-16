@@ -1,18 +1,33 @@
+import { useGetTodosQuery } from '@/redux/api/api';
 import { deleteTodo } from '@/redux/features/todoSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { TTodo } from '@/types/commonTypes';
 import UpdateTodo from './UpdateTodo';
 
 const TodoList = () => {
-  const { todos, filter } = useAppSelector((state) => state.todo);
-  const completedTodos = todos.filter((todo) => todo.isCompleted);
-  const incompleteTodos = todos.filter((todo) => !todo.isCompleted);
-  const allTodos = incompleteTodos.concat(completedTodos); // just to show incompleted todos first
+  // // load states from local
+  const { filter } = useAppSelector((state) => state.todo);
+
+  //load state from server
+  const { data: todos, isLoading, isError } = useGetTodosQuery(undefined);
+  let allTodos: TTodo[] = [];
+
+  if (isLoading === false && isError === false) {
+    const completedTodos = todos.data.filter((todo: TTodo) => todo.isCompleted);
+    const incompleteTodos = todos.data.filter(
+      (todo: TTodo) => !todo.isCompleted
+    );
+    allTodos = incompleteTodos.concat(completedTodos); // just to show incompleted todos first
+  }
 
   const dispatch = useAppDispatch();
   const handleDelete = (todo: TTodo) => {
     dispatch(deleteTodo(todo));
   };
+
+  if (isLoading) return <h1>Loading...</h1>;
+  if (isError) return <h1>Error...</h1>;
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm text-center text-gray-400">
@@ -68,8 +83,8 @@ const TodoList = () => {
               );
             })}
           {filter === 'completed' &&
-            todos
-              ?.filter((todo) => todo.isCompleted)
+            todos.data
+              ?.filter((todo: TTodo) => todo.isCompleted)
               .map((todo: TTodo) => {
                 const { id, title, description, isCompleted } = todo;
 
@@ -106,8 +121,8 @@ const TodoList = () => {
                 );
               })}
           {filter === 'incompleted' &&
-            todos
-              ?.filter((todo) => !todo.isCompleted)
+            todos?.data
+              ?.filter((todo: TTodo) => !todo.isCompleted)
               .map((todo: TTodo) => {
                 const { id, title, description, isCompleted } = todo;
 
