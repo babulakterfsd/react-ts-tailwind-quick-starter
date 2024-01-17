@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TTodo } from '../../types/commonTypes';
 import { todoInitialState } from '../initialStates';
 
-// as a note, eta bolte pari je ei todoSlice muloto local e state maintain kore
+// as a note, eta bolte pari je ei todoSlice muloto local e state maintain kore. tar maane amar ei poject e ami ei todo related crud ta maintain kortesi apiSlice theke, ekhaner todoSlice theke sudhu local e filter ta kortesi
 
 const todoSlice = createSlice({
   name: 'todo',
