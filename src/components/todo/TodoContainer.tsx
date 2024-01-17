@@ -1,4 +1,4 @@
-import { useGetTodosQuery } from '@/redux/api/api';
+import { useGetTodosFromServerQuery } from '@/redux/api/api';
 import AddTodo from './AddTodo';
 import FilterTodosDropdown from './FilterTodosDropdown';
 import NoTodo from './NoTodo';
@@ -9,7 +9,7 @@ const TodoContainer = () => {
   // const { todos } = useAppSelector((state) => state.todo);
 
   //load todos from server
-  const { data: todos } = useGetTodosQuery(undefined);
+  const { data: todos } = useGetTodosFromServerQuery(undefined);
 
   return (
     <div className="md:w-4/6 md:mx-auto mt-10">

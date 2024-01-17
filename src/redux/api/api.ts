@@ -5,16 +5,29 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://todo-app-server-bay.vercel.app',
   }),
+  tagTypes: ['Todo'],
   endpoints: (builder) => ({
-    getTodos: builder.query({
+    getTodosFromServer: builder.query({
       query: () => {
         return {
           url: '/todos',
           method: 'GET',
         };
       },
+      providesTags: ['Todo'],
+    }),
+    addTodoInServer: builder.mutation({
+      query: (todo) => {
+        return {
+          url: '/todos',
+          method: 'POST',
+          body: todo,
+        };
+      },
+      invalidatesTags: ['Todo'],
     }),
   }),
 });
 
-export const { useGetTodosQuery } = baseApi;
+export const { useGetTodosFromServerQuery, useAddTodoInServerMutation } =
+  baseApi;

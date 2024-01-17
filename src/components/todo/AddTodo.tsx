@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -9,26 +8,42 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { addTodo } from '@/redux/features/todoSlice';
-import { useAppDispatch } from '@/redux/hook';
+import { useAddTodoInServerMutation } from '@/redux/api/api';
 import { generateRandomId } from '@/utils/generateRandomId';
+import { DialogClose } from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
 const AddTodo = () => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const dispatch = useAppDispatch();
+
+  //for local state update
+  // const dispatch = useAppDispatch(); // remember, when using local state, we use this dispatch and useAppSelector. when using server state, we use useGetTodosQuery and useGetTodoQuery and so on...
+
+  //for server state update
+  // const [addTodo, { data: returnedData, isLoading, isError, isSuccess }] =
+  //   useAddTodoInServerMutation();
+  const [addTodo] = useAddTodoInServerMutation();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(
-      addTodo({
-        id: generateRandomId(),
-        title,
-        description,
-        isCompleted: false,
-      })
-    );
+    // dispatch(
+    //   addTodo({
+    //     id: generateRandomId(),
+    //     title,
+    //     description,
+    //     isCompleted: false,
+    //   })
+    // ); local state e jokhon update korchilam, tokhn evabe dispatch e todoSlice er addTodo function call kore kaj korechilam.
+
+    //to update server state
+    addTodo({
+      id: generateRandomId(),
+      title,
+      description,
+      isCompleted: false,
+    });
+
     setTitle('');
     setDescription('');
   };

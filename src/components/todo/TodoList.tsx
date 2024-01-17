@@ -1,4 +1,4 @@
-import { useGetTodosQuery } from '@/redux/api/api';
+import { useGetTodosFromServerQuery } from '@/redux/api/api';
 import { deleteTodo } from '@/redux/features/todoSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { TTodo } from '@/types/commonTypes';
@@ -9,7 +9,11 @@ const TodoList = () => {
   const { filter } = useAppSelector((state) => state.todo);
 
   //load state from server
-  const { data: todos, isLoading, isError } = useGetTodosQuery(undefined);
+  const {
+    data: todos,
+    isLoading,
+    isError,
+  } = useGetTodosFromServerQuery(undefined);
   let allTodos: TTodo[] = [];
 
   if (isLoading === false && isError === false) {

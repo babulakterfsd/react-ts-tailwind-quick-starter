@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TTodo } from '../../types/commonTypes';
 import { todoInitialState } from '../initialStates';
 
+// as a note, eta bolte pari je ei todoSlice muloto local e state maintain kore
+
 const todoSlice = createSlice({
   name: 'todo',
   initialState: todoInitialState,
