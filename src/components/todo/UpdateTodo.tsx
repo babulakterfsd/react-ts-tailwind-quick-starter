@@ -7,8 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { updateTodo } from '@/redux/features/todoSlice';
-import { useAppDispatch } from '@/redux/hook';
+import { useUpdateATodoInServerMutation } from '@/redux/api/api';
 import { TTodo } from '@/types/commonTypes';
 import { useState } from 'react';
 
@@ -19,7 +18,7 @@ const UpdateTodo = (todo: { todo: TTodo }) => {
     todo.todo.isCompleted
   );
 
-  const dispatch = useAppDispatch();
+  const [updateTodoInServer] = useUpdateATodoInServerMutation();
 
   const handleIsCompletedChange = () => {
     setIsCompleted(!isCompleted);
@@ -27,14 +26,15 @@ const UpdateTodo = (todo: { todo: TTodo }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(
-      updateTodo({
-        id: todo.todo.id,
-        title,
-        description,
-        isCompleted,
-      })
-    );
+
+    const options = {
+      id: todo.todo.id,
+      title,
+      description,
+      isCompleted,
+    };
+
+    updateTodoInServer(options);
   };
 
   return (

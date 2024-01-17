@@ -1,6 +1,8 @@
-import { useGetTodosFromServerQuery } from '@/redux/api/api';
-import { deleteTodo } from '@/redux/features/todoSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import {
+  useDeleteATodoFromServerMutation,
+  useGetTodosFromServerQuery,
+} from '@/redux/api/api';
+import { useAppSelector } from '@/redux/hook';
 import { TTodo } from '@/types/commonTypes';
 import UpdateTodo from './UpdateTodo';
 
@@ -14,6 +16,8 @@ const TodoList = () => {
     isLoading,
     isError,
   } = useGetTodosFromServerQuery(undefined);
+  const [deleteATodoFromServer] = useDeleteATodoFromServerMutation();
+
   let allTodos: TTodo[] = [];
 
   if (isLoading === false && isError === false) {
@@ -24,9 +28,8 @@ const TodoList = () => {
     allTodos = incompleteTodos.concat(completedTodos); // just to show incompleted todos first
   }
 
-  const dispatch = useAppDispatch();
   const handleDelete = (todo: TTodo) => {
-    dispatch(deleteTodo(todo));
+    deleteATodoFromServer(todo);
   };
 
   if (isLoading) return <h1>Loading...</h1>;
